@@ -2,23 +2,26 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  // use effect to get full menu
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NavBar />
+      <Greeting />
+      <PickUpPoint />
+      <FullMenu/>
+        <PopularBrews/> 
+          // <h1 Popular brews>
+          // <map through <ItemCard />
+        <SesonalItems />
+          // <h1 Seasonal Teas>
+          // <map through <ItemCard />
+        <BottledItems />
+          // <h1 Bottled Teas>
+          // <map through <ItemCard />
+
+    </>
   );
 }
 
