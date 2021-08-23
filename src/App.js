@@ -1,13 +1,17 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import FullMenu  from './components/Menu/FullMenu';
+import { MenuProvider } from './StoreLogic/store';
 
 function App() {
 
   // use effect to get full menu
 
   return (
-    <>
-      <NavBar />
+    <MenuProvider>
+      <FullMenu/>
+
+      {/* <NavBar />
       <Greeting />
       <PickUpPoint />
       <FullMenu/>
@@ -19,9 +23,8 @@ function App() {
           // <map through <ItemCard />
         <BottledItems />
           // <h1 Bottled Teas>
-          // <map through <ItemCard />
-
-    </>
+          // <map through <ItemCard /> */}
+    </MenuProvider>
   );
 }
 
