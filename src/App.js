@@ -1,30 +1,23 @@
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import React from 'react';
 import './App.css';
-import FullMenu  from './components/Menu/FullMenu';
+import FullMenu from './components/Menu/FullMenu';
 import { MenuProvider } from './StoreLogic/store';
+import CheckOut from './components/CheckOut/CheckOut';
 
 function App() {
-
   // use effect to get full menu
 
   return (
-    <MenuProvider>
-      <FullMenu/>
+    <Router>
+      <Switch>
+        <MenuProvider>
+          <Route path="/" exact component={FullMenu} />
+          <Route path="/checkout" exact component={CheckOut} />
+        </MenuProvider>
+      </Switch>
+    </Router>
 
-      {/* <NavBar />
-      <Greeting />
-      <PickUpPoint />
-      <FullMenu/>
-        <PopularBrews/> 
-          // <h1 Popular brews>
-          // <map through <ItemCard />
-        <SesonalItems />
-          // <h1 Seasonal Teas>
-          // <map through <ItemCard />
-        <BottledItems />
-          // <h1 Bottled Teas>
-          // <map through <ItemCard /> */}
-    </MenuProvider>
   );
 }
 

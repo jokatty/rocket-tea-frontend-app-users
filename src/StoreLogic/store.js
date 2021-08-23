@@ -3,19 +3,23 @@ import axios from 'axios';
 
 //  object that represents all the data contained in the app.
 export const initialState = {
-  items: [],
   cart: [],
   currentItemIndex: null,
+  totalAmount: 0,
 };
+
 // actions that can be performed on the above data
 const LOAD_ITEMS = 'LOAD_ITEMS';
-const ADD_CART = 'ADD_CART';
+const ADD_ITEM = 'ADD_ITEM';
+const TOTAL_AMOUNT = 'TOTAL_AMOUNT';
 
 //  reducer function for the actions
 export function menuReducer(state, action) {
   switch (action.type) {
-    case LOAD_ITEMS:
-      return { ...state, items: action.payload.items };
+    case ADD_ITEM:
+      return { ...state, cart: [...state.cart, action.payload.item] };
+    case TOTAL_AMOUNT:
+      return { ...state, totalAmount: state.totalAmount + action.payload.amount };
     default:
       return state;
   }
@@ -30,6 +34,26 @@ export function loadItemsAction(items) {
   };
 }
 
+export function addItemAction(item) {
+  console.log('additem ran');
+  console.log(item);
+  return {
+    type: ADD_ITEM,
+    payload: {
+      item,
+    },
+  };
+}
+
+export function addTotalAmount(amount) {
+  return {
+    type: TOTAL_AMOUNT,
+    payload: {
+      amount,
+    },
+
+  };
+}
 // Provider code
 export const MenuContext = createContext(null);
 const { Provider } = MenuContext;

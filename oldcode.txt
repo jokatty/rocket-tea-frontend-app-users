@@ -1,0 +1,13 @@
+  /* <NavBar />
+      <Greeting />
+      <PickUpPoint />
+      <FullMenu/>
+        <PopularBrews/>
+          // <h1 Popular brews>
+          // <map through <ItemCard />
+        <SesonalItems />
+          // <h1 Seasonal Teas>
+          // <map through <ItemCard />
+        <BottledItems />
+          // <h1 Bottled Teas>
+          // <map through <ItemCard /> */
