@@ -25,6 +25,7 @@ export default function CheckOut() {
         pickUpTime: pickuptime,
         isComplete: false,
         orderStatus: store.orderStatus,
+        totalAmount: store.totalAmount,
       },
       // orderItemsTableData
       orderItemsTableData:

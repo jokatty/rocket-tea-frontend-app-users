@@ -14,6 +14,13 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
   function handleSubmit(e) {
     e.preventDefault();
     console.log('STORE ID:', store.storeId);
+    let itemTotal = 0;
+    if (size === 'regular') {
+      itemTotal = quantity * itemInfo.price;
+    } else if (size === 'large') {
+      itemTotal = quantity * (itemInfo.price + 1);
+    }
+    console.log(itemTotal);
     const singleOrder = {
       itemId: itemInfo.id,
       sizeChoice: size,
@@ -21,6 +28,7 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
       quantity,
       itemName: itemInfo.itemName,
       itemPrice: itemInfo.price,
+      itemTotal,
     };
     dispatch(addItemAction(singleOrder));
     // DISPATCH THE TOTAL AMOUNT.
