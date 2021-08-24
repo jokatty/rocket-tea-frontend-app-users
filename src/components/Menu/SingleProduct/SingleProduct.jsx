@@ -3,16 +3,17 @@ import React, { useState, useContext } from 'react';
 import { addItemAction, MenuContext, addTotalAmount } from '../../../StoreLogic/store';
 
 export default function SingleProduct({ itemInfo, setDisplayMenu }) {
-  const { dispatch } = useContext(MenuContext);
+  const { store, dispatch } = useContext(MenuContext);
 
   // set local state for inputs
   const [size, setSize] = useState('');
   const [temp, setTemp] = useState('');
   const [quantity, setQuantity] = useState(0);
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(itemInfo.price);
 
   function handleSubmit(e) {
     e.preventDefault();
+    console.log('STORE ID:', store.storeId);
     const singleOrder = {
       itemId: itemInfo.id,
       sizeChoice: size,
@@ -47,13 +48,14 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
         {itemInfo.availableInTemp}
       </p>
       <form onSubmit={handleSubmit}>
-        <p>Size</p>
+        <p>Size:(extra $1 for large)</p>
         <input
           type="radio"
           id="regular"
           name="size_choice"
           value="regular"
           onChange={() => {
+            setTotalAmount(itemInfo.price);
             setSize('regular');
           }}
         />
@@ -65,6 +67,7 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
           name="size_choice"
           value="large"
           onChange={() => {
+            setTotalAmount(totalAmount + 1);
             setSize('large');
           }}
         />
