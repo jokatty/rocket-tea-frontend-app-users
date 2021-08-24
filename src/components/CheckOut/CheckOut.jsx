@@ -1,40 +1,45 @@
 import React, { useContext, useState } from 'react';
-import axios from 'axios';
-import { MenuContext } from '../../StoreLogic/store';
+import { MenuContext, confirmOrder, setOrderStatus } from '../../StoreLogic/store';
+import StoreLocations from '../StoreLocation/StoreLocation';
+import OrderSummary from '../OrderSummary/OrderSummary';
 
 export default function CheckOut() {
   // global states
-  const { store } = useContext(MenuContext);
+  const { store, dispatch } = useContext(MenuContext);
   //  local state
   const [pickuptime, setPickuptime] = useState();
+  const [showOrderSumamry, setOrderSummary] = useState(false);
 
   /**
    * handle confirm order btn click.
    * send the order to the backend.
    */
   async function handleClick() {
+    // set the orderStatus
+    dispatch(setOrderStatus('sent'));
     const orderInfo = {
     // orderTableData
       orderTableData: {
         userId: 1,
-        storeId: 1,
+        storeId: store.storeInfo.storeId,
         pickUpTime: pickuptime,
         isComplete: false,
+        orderStatus: store.orderStatus,
       },
       // orderItemsTableData
-      orderItemsTableData: [
+      orderItemsTableData:
         store.cart.map((entry) => ({
           itemId: entry.itemId,
           sizeChoice: entry.sizeChoice,
           tempChoice: entry.tempChoice,
           quantity: entry.quantity,
         })),
-      ],
+
     };
-    const response = await axios.post('/api/neworder', orderInfo);
-    console.log(response);
-    console.log(pickuptime);
+    await confirmOrder(orderInfo);
+    setOrderSummary(true);
   }
+
   return (
     <>
       <p>ORDER SUMARY</p>
@@ -67,6 +72,8 @@ export default function CheckOut() {
         Total: $
         {store.totalAmount}
       </h3>
+      <h3>Pick up from:</h3>
+      <StoreLocations />
       <span>Pick up time</span>
       <input
         type="time"
@@ -77,6 +84,10 @@ export default function CheckOut() {
       <p>Payment Method: cash only</p>
       <button type="button" onClick={handleClick}>Confirm order</button>
 
+      {/* render order summary page */}
+      <p>==========BELOW IS RENDERED AS MODAL===========</p>
+      <h4>ORDER SUMMARY MODAL</h4>
+      {showOrderSumamry && <OrderSummary pickuptime={pickuptime} />}
     </>
   );
 }
