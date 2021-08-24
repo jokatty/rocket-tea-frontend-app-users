@@ -21,7 +21,7 @@ export default function CheckOut() {
     // orderTableData
       orderTableData: {
         userId: 1,
-        storeId: 1,
+        storeId: store.storeInfo.storeId,
         pickUpTime: pickuptime,
         isComplete: false,
         orderStatus: store.orderStatus,

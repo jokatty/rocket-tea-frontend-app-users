@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { MenuContext } from '../../StoreLogic/store';
 
 export default function OrderSummary({ pickuptime }) {
@@ -7,7 +8,10 @@ export default function OrderSummary({ pickuptime }) {
   return (
     <>
       <p>Order id: </p>
-      <p>Pick up from: </p>
+      <p>
+        Pick up from:
+        {store.storeInfo.storeLocation}
+      </p>
       <p>
         Pick up time:
         {pickuptime}
@@ -32,7 +36,7 @@ export default function OrderSummary({ pickuptime }) {
           </p>
         </div>
       ))}
-      <button type="button">BACK TO MENU</button>
+      <Link to="/">BACK TO MENU</Link>
     </>
   );
 }

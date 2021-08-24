@@ -6,7 +6,10 @@ export const initialState = {
   cart: [],
   currentItemIndex: null,
   totalAmount: 0,
-  storeId: 1,
+  storeInfo: {
+    storeId: 1,
+    storeLocation: '',
+  },
   orderStatus: '',
 };
 
@@ -14,7 +17,7 @@ export const initialState = {
 const LOAD_ITEMS = 'LOAD_ITEMS';
 const ADD_ITEM = 'ADD_ITEM';
 const TOTAL_AMOUNT = 'TOTAL_AMOUNT';
-const STORE_ID = 'STORE_ID';
+const STORE_INFO = 'STORE_INFO';
 const ORDER_STATUS = 'ORDER_STATUS';
 
 //  reducer function for the actions
@@ -24,8 +27,8 @@ export function menuReducer(state, action) {
       return { ...state, cart: [...state.cart, action.payload.item] };
     case TOTAL_AMOUNT:
       return { ...state, totalAmount: state.totalAmount + action.payload.amount };
-    case STORE_ID:
-      return { ...state, storeId: action.payload.storeId };
+    case STORE_INFO:
+      return { ...state, storeInfo: action.payload.storeInfo };
     case ORDER_STATUS:
       return { ...state, orderStatus: action.payload.status };
     default:
@@ -63,12 +66,15 @@ export function addTotalAmount(amount) {
   };
 }
 
-export function getStoreId(storeId) {
+export function getStoreId(storeId, storeLocation) {
   console.log('get store id is running');
   return {
-    type: STORE_ID,
+    type: STORE_INFO,
     payload: {
-      storeId,
+      storeInfo: {
+        storeId,
+        storeLocation,
+      },
     },
   };
 }
