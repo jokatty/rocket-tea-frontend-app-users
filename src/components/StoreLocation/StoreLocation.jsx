@@ -18,18 +18,15 @@ export default function StoreLocations() {
   }, []);
 
   //  call back function for on change
-  function handleOnChange(e) {
-    const selectedStoreId = e.target.value;
-    const selectedStoreLocation = 'Blocker';
-
+  function handleChange(e) {
+    const selectedStoreId = e.target.value[0];
+    const selectedStoreLocation = e.target.value.slice(1);
     dispatch(getStoreId(selectedStoreId, selectedStoreLocation));
   }
-
-  // console.log(locations);
   return (
-    <select name="select_location" onChange={handleOnChange}>
+    <select name="select_location" onChange={handleChange}>
       {
-     stores.map((entry) => <option value={entry.id}>{entry.location}</option>)
+     stores.map((entry) => <option value={`${entry.id}${entry.location}`}>{entry.location}</option>)
    }
 
     </select>

@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SingleProduct from './SingleProduct/SingleProduct';
+import SingleProduct from '../SingleProduct/SingleProduct';
 import {
   MenuContext, loadItems,
 } from '../../StoreLogic/store';

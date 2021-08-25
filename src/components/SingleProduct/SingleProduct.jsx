@@ -1,19 +1,30 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useContext } from 'react';
-import { addItemAction, MenuContext, addTotalAmount } from '../../../StoreLogic/store';
+import React, { useState, useContext, useEffect } from 'react';
+import { addItemAction, MenuContext, addTotalAmount } from '../../StoreLogic/store';
 
 export default function SingleProduct({ itemInfo, setDisplayMenu }) {
   const { store, dispatch } = useContext(MenuContext);
 
   // set local state for inputs
-  const [size, setSize] = useState('');
+  const [size, setSize] = useState('regular');
   const [temp, setTemp] = useState('');
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [totalAmount, setTotalAmount] = useState(itemInfo.price);
+
+  useEffect(() => {
+    let updatedTotalAmount;
+    if (size === 'large') {
+      updatedTotalAmount = (itemInfo.price + 1) * quantity;
+    } else {
+      updatedTotalAmount = itemInfo.price * quantity;
+    }
+    setTotalAmount(() => updatedTotalAmount);
+  }, [quantity, size]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('STORE ID:', store.storeId);
+    // console.log('STORE ID:', store.storeId);
     let itemTotal = 0;
     if (size === 'regular') {
       itemTotal = quantity * itemInfo.price;
@@ -63,7 +74,7 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
           name="size_choice"
           value="regular"
           onChange={() => {
-            setTotalAmount(itemInfo.price);
+            // setTotalAmount(itemInfo.price);
             setSize('regular');
           }}
         />
@@ -75,7 +86,7 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
           name="size_choice"
           value="large"
           onChange={() => {
-            setTotalAmount(totalAmount + 1);
+            // setTotalAmount(totalAmount + 1);
             setSize('large');
           }}
         />
@@ -104,12 +115,8 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
         <div>
           <button
             type="button"
-            onClick={async () => {
-              const newQuantity = quantity - 1;
-              await setQuantity(newQuantity);
-              const updatedTotalAmount = itemInfo.price * newQuantity;
-              console.log(updatedTotalAmount);
-              setTotalAmount(updatedTotalAmount);
+            onClick={() => {
+              setQuantity(() => quantity - 1);
             }}
           >
             -
@@ -117,13 +124,8 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
           <span>{quantity}</span>
           <button
             type="button"
-            onClick={async () => {
-              const newQuantity = quantity + 1;
-              await setQuantity(newQuantity);
-              console.log(newQuantity);
-              const updatedTotalAmount = itemInfo.price * newQuantity;
-              console.log(updatedTotalAmount);
-              setTotalAmount(updatedTotalAmount);
+            onClick={() => {
+              setQuantity(() => quantity + 1);
             }}
           >
             +
