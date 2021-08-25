@@ -4,6 +4,8 @@ import './App.css';
 import FullMenu from './Components/Menu/FullMenu';
 import { MenuProvider } from './StoreLogic/store';
 import CheckOut from './Components/CheckOut/CheckOut';
+import Orders from './Components/ViewOrders/Orders';
+import OrderHistory from './Components/ViewOrders/OrderHistory';
 
 function App() {
   // use effect to get full menu
@@ -14,6 +16,8 @@ function App() {
         <MenuProvider>
           <Route path="/" exact component={FullMenu} />
           <Route path="/checkout" exact component={CheckOut} />
+          <Route path="/orders" exact component={Orders} />
+          <Route path="/orderhistory" exact component={OrderHistory} />
         </MenuProvider>
       </Switch>
     </Router>
