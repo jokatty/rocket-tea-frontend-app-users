@@ -10,7 +10,7 @@ export const initialState = {
     storeId: 1,
     storeLocation: '',
   },
-  orderStatus: '',
+  orderStatus: 'sent',
 };
 
 // actions that can be performed on the above data
@@ -103,6 +103,8 @@ export async function loadItems() {
 }
 export async function confirmOrder(orderInfo) {
   const response = await axios.post(`${BACKEND_URL}/api/neworder`, orderInfo);
+  console.log('RESPONSE DATA AFTER ORDER CONFIRMATION');
+  console.log(response);
   return response;
 }
 

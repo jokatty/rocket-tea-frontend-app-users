@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { MenuContext, confirmOrder, setOrderStatus } from '../../StoreLogic/store';
+import { MenuContext, confirmOrder } from '../../StoreLogic/store';
 import StoreLocations from '../StoreLocation/StoreLocation';
 import OrderSummary from '../OrderSummary/OrderSummary';
 
 export default function CheckOut() {
   // global states
-  const { store, dispatch } = useContext(MenuContext);
+  const { store } = useContext(MenuContext);
   //  local state
   const [pickuptime, setPickuptime] = useState();
   const [showOrderSumamry, setOrderSummary] = useState(false);
@@ -15,15 +15,12 @@ export default function CheckOut() {
    * send the order to the backend.
    */
   async function handleClick() {
-    // set the orderStatus
-    dispatch(setOrderStatus('sent'));
     const orderInfo = {
     // orderTableData
       orderTableData: {
         userId: 1,
         storeId: store.storeInfo.storeId,
         pickUpTime: pickuptime,
-        isComplete: false,
         orderStatus: store.orderStatus,
         totalAmount: store.totalAmount,
       },
@@ -34,6 +31,7 @@ export default function CheckOut() {
           sizeChoice: entry.sizeChoice,
           tempChoice: entry.tempChoice,
           quantity: entry.quantity,
+          itemTotal: entry.itemTotal,
         })),
     };
     await confirmOrder(orderInfo);
@@ -42,7 +40,7 @@ export default function CheckOut() {
 
   return (
     <>
-      <p>ORDER SUMARY</p>
+      <p>CheckOut</p>
       {store.cart.map((entry) => (
         <div>
           <p>
@@ -56,7 +54,7 @@ export default function CheckOut() {
           <p>
             Item Price:
             $
-            {entry.itemPrice}
+            {entry.itemTotal}
           </p>
           <p>
             Item quantity:
