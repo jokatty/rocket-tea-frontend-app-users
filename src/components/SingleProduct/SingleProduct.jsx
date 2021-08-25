@@ -10,40 +10,31 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
   const [size, setSize] = useState('regular');
   const [temp, setTemp] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const [totalAmount, setTotalAmount] = useState(itemInfo.price);
+  const [itemTotal, setItemTotal] = useState(Number(itemInfo.price));
 
   useEffect(() => {
-    let updatedTotalAmount;
+    let updatedItemTotal;
     if (size === 'large') {
-      updatedTotalAmount = (itemInfo.price + 1) * quantity;
+      updatedItemTotal = (Number(itemInfo.price) + 1) * quantity;
     } else {
-      updatedTotalAmount = itemInfo.price * quantity;
+      updatedItemTotal = Number(itemInfo.price) * quantity;
     }
-    setTotalAmount(() => updatedTotalAmount);
+    setItemTotal(() => updatedItemTotal);
   }, [quantity, size]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    // console.log('STORE ID:', store.storeId);
-    let itemTotal = 0;
-    if (size === 'regular') {
-      itemTotal = quantity * itemInfo.price;
-    } else if (size === 'large') {
-      itemTotal = quantity * (itemInfo.price + 1);
-    }
-    console.log(itemTotal);
     const singleOrder = {
       itemId: itemInfo.id,
       sizeChoice: size,
       tempChoice: temp,
       quantity,
       itemName: itemInfo.itemName,
-      itemPrice: itemInfo.price,
       itemTotal,
     };
     dispatch(addItemAction(singleOrder));
     // DISPATCH THE TOTAL AMOUNT.
-    dispatch(addTotalAmount(totalAmount));
+    dispatch(addTotalAmount(itemTotal));
     //
     setDisplayMenu(() => null);
   }
@@ -60,7 +51,7 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
       </p>
       <p>
         Price:
-        {itemInfo.price}
+        {Number(itemInfo.price)}
       </p>
       <p>
         Temp:
@@ -74,7 +65,6 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
           name="size_choice"
           value="regular"
           onChange={() => {
-            // setTotalAmount(itemInfo.price);
             setSize('regular');
           }}
         />
@@ -86,7 +76,6 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
           name="size_choice"
           value="large"
           onChange={() => {
-            // setTotalAmount(totalAmount + 1);
             setSize('large');
           }}
         />
@@ -133,7 +122,7 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
           <p>
             <button type="submit">
               Add to cart $
-              {totalAmount}
+              {itemTotal}
             </button>
           </p>
         </div>
