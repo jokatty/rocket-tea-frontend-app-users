@@ -113,3 +113,17 @@ export async function storeLocations() {
   console.log(response);
   return response;
 }
+
+// Get the current order details for an userId
+export async function getOrderDetails(userId) {
+  const response = await axios.get(`${BACKEND_URL}/api/orders/${userId}`);
+  console.log(response);
+  return response;
+}
+
+// Get Order history for an userId
+export async function getPastOrderHistory(userId) {
+  const response = await axios.get(`${BACKEND_URL}/api/orderhistory/${userId}`);
+  console.log(response);
+  return response;
+}

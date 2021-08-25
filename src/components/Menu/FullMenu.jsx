@@ -11,8 +11,6 @@ export default function FullMenu() {
   const { store } = useContext(MenuContext);
   // local state:
   const [items, setItems] = useState([{ item_name: 'jo' }]);
-  console.log('FULL MENUUUUUU');
-  console.log(store);
 
   useEffect(() => {
     (async () => {
@@ -35,6 +33,7 @@ export default function FullMenu() {
 
     return (
       <>
+        <Link to="/orders">🍔</Link>
         <ul>
           {items.map((entry) => (
             <li key={entry.id} onClick={() => { handleClick(entry); }}>
