@@ -35,7 +35,6 @@ export default function CheckOut() {
           tempChoice: entry.tempChoice,
           quantity: entry.quantity,
         })),
-
     };
     await confirmOrder(orderInfo);
     setOrderSummary(true);
