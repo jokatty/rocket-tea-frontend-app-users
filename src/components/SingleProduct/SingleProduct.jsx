@@ -13,13 +13,15 @@ export default function SingleProduct({ itemInfo, setDisplayMenu }) {
   const [itemTotal, setItemTotal] = useState(Number(itemInfo.price));
 
   useEffect(() => {
-    let updatedItemTotal;
-    if (size === 'large') {
-      updatedItemTotal = (Number(itemInfo.price) + 1) * quantity;
-    } else {
-      updatedItemTotal = Number(itemInfo.price) * quantity;
-    }
-    setItemTotal(() => updatedItemTotal);
+    (async () => {
+      let updatedItemTotal;
+      if (size === 'large') {
+        updatedItemTotal = (Number(itemInfo.price) + 1) * quantity;
+      } else {
+        updatedItemTotal = Number(itemInfo.price) * quantity;
+      }
+      setItemTotal(() => updatedItemTotal);
+    })();
   }, [quantity, size]);
 
   function handleSubmit(e) {
