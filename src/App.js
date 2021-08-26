@@ -21,7 +21,6 @@ function App() {
         </MenuProvider>
       </Switch>
     </Router>
-
   );
 }
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { getPastOrderHistory } from '../../StoreLogic/store';
 import { SocketContext, socket } from '../../context/Socket';

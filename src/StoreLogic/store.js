@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import axios from 'axios';
 import { BACKEND_URL } from '../config/config.mjs';
 
+
 //  object that represents all the data contained in the app.
 export const initialState = {
   cart: [],
