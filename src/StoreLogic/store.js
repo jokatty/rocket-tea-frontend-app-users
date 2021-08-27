@@ -1,5 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import axios from 'axios';
+import { BACKEND_URL } from '../config/config.mjs';
+
 
 //  object that represents all the data contained in the app.
 export const initialState = {
@@ -96,7 +98,6 @@ export function MenuProvider({ children }) {
 }
 
 // /Backend requests.
-const BACKEND_URL = 'http://localhost:3004';
 export async function loadItems() {
   const result = await axios.get(`${BACKEND_URL}/api/items`);
   return result;
