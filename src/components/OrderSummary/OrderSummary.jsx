@@ -7,7 +7,7 @@ export default function OrderSummary({ pickuptime }) {
   console.log(store.cart);
   return (
     <>
-      <p>Order id: </p>
+      <p>Order id:  </p>
       <p>
         Pick up from:
         {store.storeInfo.storeLocation}
