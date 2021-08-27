@@ -1,20 +1,24 @@
 import React from 'react';
 
-export default function OrderDetails() {
+export default function OrderDetails({ orderDetails }) {
+  console.log('order detailssss', orderDetails);
   return (
     <>
       <h1>=========View order modal component=============</h1>
       <p>Order id: </p>
       <p>
-        Pick up from:
+        Pick up from :
+        {orderDetails.orderTableData.storeId}
       </p>
       <p>
         Pick up time:
+        {orderDetails.orderTableData.pickUpTime}
       </p>
       <p>
         Order status:
+        {orderDetails.orderTableData.orderStatus}
       </p>
-      {/* {store.cart.map((item) => (
+      {orderDetails.orderItemsTableData.map((item) => (
         <div>
           <p>
             Item Name:
@@ -29,7 +33,7 @@ export default function OrderDetails() {
             {item.quantity}
           </p>
         </div>
-      ))} */}
+      ))}
     </>
   );
 }
