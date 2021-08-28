@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
-import { storeLocations, getStoreId, MenuContext } from '../../StoreLogic/store';
+import {
+  storeLocations, getStoreId, MenuContext,
+} from '../../StoreLogic/store';
 /**
    * pick up location dropdown
    */
@@ -28,7 +30,6 @@ export default function StoreLocations() {
       {
      stores.map((entry) => <option value={`${entry.id}${entry.location}`}>{entry.location}</option>)
    }
-
     </select>
   );
 }
