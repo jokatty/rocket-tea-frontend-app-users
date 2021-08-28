@@ -1,11 +1,11 @@
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import React from 'react';
 import './App.css';
-import FullMenu from './Components/Menu/FullMenu';
+import FullMenu from './components/Menu/FullMenu';
 import { MenuProvider } from './StoreLogic/store';
-import CheckOut from './Components/CheckOut/CheckOut';
-import Orders from './Components/ViewOrders/Orders';
-import OrderHistory from './Components/ViewOrders/OrderHistory';
+import CheckOut from './components/CheckOut/CheckOut';
+import Orders from './components/ViewOrders/Orders';
+import OrderHistory from './components/ViewOrders/OrderHistory';
 
 function App() {
   // use effect to get full menu
@@ -21,7 +21,6 @@ function App() {
         </MenuProvider>
       </Switch>
     </Router>
-
   );
 }
 
