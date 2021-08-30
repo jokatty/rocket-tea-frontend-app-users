@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import SingleProduct from '../SingleProduct/SingleProduct.jsx';
 import MenuItemCard from './MenuItemCard.jsx';
+import ViewCartButton from './ViewCartButton.jsx';
 import {
   MenuContext, loadItems,
 } from '../../StoreLogic/store.js';
@@ -27,14 +28,33 @@ const useStyles = makeStyles({
 export default function FullMenu() {
   const classes = useStyles();
   const { store } = useContext(MenuContext);
+
   // local state:
   const [items, setItems] = useState([]);
   const refClickedItem = useRef();
+  const refPopularItems = useRef([]);
+  const refEssentialItems = useRef([]);
+  const refBottledItems = useRef([]);
 
   useEffect(() => {
     (async () => {
       const { data } = await loadItems();
-      setItems(() => data.items);
+      const allItems = data.items;
+
+      // split into categories
+      for (let i = 0; i < allItems.length; i += 1) {
+        const item = allItems[i];
+        if (item.itemCategory === 'popular') {
+          refPopularItems.current = [...refPopularItems.current, { ...item, index: i }];
+        } else if (item.itemCategory === 'essentials') {
+          refEssentialItems.current = [...refEssentialItems.current, { ...item, index: i }];
+        } else {
+          refBottledItems.current = [...refBottledItems.current, { ...item, index: i }];
+        }
+      }
+
+      // update state
+      setItems(() => allItems);
     })();
   }, []);
 
@@ -47,85 +67,18 @@ export default function FullMenu() {
     setDisplayMenu(() => e);
   }
 
+
   // == NOTE: NEED TO MAKE THIS MORE EFFICIENT IN THE FUTURE
-  const PopularComponent = () => items.map((item, index) => (
-    item.itemCategory === 'popular' ? <MenuItemCard key={item.id} itemData={item} setDisplayMenu={setDisplayMenu} refClickedItem={refClickedItem} index={index} /> : null
+  const PopularComponent = () => refPopularItems.current.map((item, index) => (
+    <MenuItemCard key={item.id} itemData={item} setDisplayMenu={setDisplayMenu} refClickedItem={refClickedItem} index={item.index} />
   ));
-  const EssentialsComponent = () => items.map((item, index) => (
-    item.itemCategory === 'essentials' ? <MenuItemCard key={item.id} itemData={item} setDisplayMenu={setDisplayMenu} refClickedItem={refClickedItem} index={index} /> : null
+  const EssentialsComponent = () => refEssentialItems.current.map((item, index) => (
+    <MenuItemCard key={item.id} itemData={item} setDisplayMenu={setDisplayMenu} refClickedItem={refClickedItem} index={item.index} />
   ));
-  const BottledComponent = () => items.map((item, index) => (
-    item.itemCategory === 'bottled' ? <MenuItemCard key={item.id} itemData={item} setDisplayMenu={setDisplayMenu} refClickedItem={refClickedItem} index={index} /> : null
+  const BottledComponent = () => refBottledItems.current.map((item, index) => (
+    <MenuItemCard key={item.id} itemData={item} setDisplayMenu={setDisplayMenu} refClickedItem={refClickedItem} index={item.index} />
   ));
   // =======================================================
-
-  const ComponentToRender = () => {
-    // PAGE LOADING
-
-    if (displayMenu === 'SINGLE_PRODUCT') {
-      return <SingleProduct itemInfo={displayMenu} setDisplayMenu={setDisplayMenu} />;
-    }
-
-    return (
-      <>
-        <NavBar />
-        <div className={classes.root}>
-
-          <Typography variant="h5" className={classes.categoryHeader} gutterBottom>
-            POPULAR
-          </Typography>
-
-          {items.length === 0 ? <h6>LOADING</h6> : <PopularComponent />}
-
-          <Typography variant="h5" className={classes.categoryHeader} gutterBottom>
-            ESSENTIALS
-          </Typography>
-
-          {items.length === 0 ? <h6>LOADING</h6> : <EssentialsComponent />}
-
-          <Typography variant="h5" className={classes.categoryHeader} gutterBottom>
-            BOTTLED
-          </Typography>
-
-          {items.length === 0 ? <h6>LOADING</h6> : <BottledComponent />}
-
-        </div>
-      </>
-    );
-  };
-
-  // keep this code for reference
-  // const ComponentToRender = () => {
-  //   // PAGE LOADING
-
-  //   if (displayMenu != null) {
-  //     return <SingleProduct itemInfo={displayMenu} setDisplayMenu={setDisplayMenu} />;
-  //   }
-
-  //   return (
-  //     <>
-  //       {items.map((item) => (
-  //         <MenuItemCard itemData={item} />
-  //         // <li key={entry.id} onClick={() => { handleClick(entry); }}>
-  //         //   {entry.itemName}
-  //         // </li>
-  //       ))}
-  //       {store.cart.length !== 0 && (
-  //       <Link to="/checkout">
-  //         <button type="button">
-  //           View
-  //           {' '}
-  //           {store.cart.length}
-  //           {' '}
-  //           cart items
-  //           $
-  //           {store.totalAmount}
-  //         </button>
-  //       </Link>
-  //       )}
-  //     </>
-  //   );
-  // };
 
   return (
     <>
@@ -151,7 +104,10 @@ export default function FullMenu() {
         {items.length === 0 ? <h6>LOADING</h6> : <BottledComponent />}
 
       </div>
-      {displayMenu === 'SINGLE_PRODUCT' ? <SingleProduct setDisplayMenu={setDisplayMenu} item={items[refClickedItem.current]} /> : null}
+      {displayMenu === 'SINGLE_PRODUCT' ? <SingleProduct setDisplayMenu={setDisplayMenu} itemInfo={items[refClickedItem.current]} /> : null}
+
+      {store.cart.length !== 0 ? <ViewCartButton storeData={store} /> : null}
+
     </>
   );
 }
