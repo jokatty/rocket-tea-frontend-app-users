@@ -1,14 +1,32 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import { storeLocations, getStoreId, MenuContext } from '../../StoreLogic/store.js';
+
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
 /**
    * pick up location dropdown
    */
 export default function StoreLocations() {
+  const classes = useStyles();
   // global state
   const { dispatch } = useContext(MenuContext);
   // local states
   const [stores, setStores] = useState([]);
+  const [selectStore, setSelectStore] = useState();
 
   useEffect(() => {
     (async () => {
@@ -22,13 +40,29 @@ export default function StoreLocations() {
     const selectedStoreId = e.target.value[0];
     const selectedStoreLocation = e.target.value.slice(1);
     dispatch(getStoreId(selectedStoreId, selectedStoreLocation));
+    setSelectStore(() => e.target.value);
   }
   return (
-    <select name="select_location" onChange={handleChange}>
-      {
-     stores.map((entry) => <option value={`${entry.id}${entry.location}`}>{entry.location}</option>)
-   }
-
-    </select>
+    <FormControl variant="outlined" className={classes.formControl}>
+      <Select
+        native
+        value={selectStore}
+        onChange={handleChange}
+        inputProps={{
+          name: 'stores',
+          id: 'outlined-stores-native-simple',
+        }}
+      >
+        {stores.map((entry) => <option value={`${entry.id}${entry.location}`}>{entry.location}</option>)}
+      </Select>
+    </FormControl>
   );
+  // return (
+  //   <select name="select_location" onChange={handleChange}>
+  //     {
+  //    stores.map((entry) => <option value={`${entry.id}${entry.location}`}>{entry.location}</option>)
+  //  }
+
+  //   </select>
+  // );
 }
