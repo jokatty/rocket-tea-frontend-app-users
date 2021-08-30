@@ -145,5 +145,6 @@ export default function CheckOut() {
 
       {showOrderSumamry && <OrderDetails orderDetails={orderDetails} />}
     </Box>
+
   );
 }
