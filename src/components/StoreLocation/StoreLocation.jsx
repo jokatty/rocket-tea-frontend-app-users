@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
-import { storeLocations, getStoreId, MenuContext } from '../../StoreLogic/store';
+import { storeLocations, getStoreId, MenuContext } from '../../StoreLogic/store.js';
 /**
    * pick up location dropdown
    */

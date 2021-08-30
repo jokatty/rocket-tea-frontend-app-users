@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { MenuContext } from '../../StoreLogic/store';
+import { MenuContext } from '../../StoreLogic/store.js';
 
 export default function OrderSummary({ pickuptime }) {
   const { store } = useContext(MenuContext);

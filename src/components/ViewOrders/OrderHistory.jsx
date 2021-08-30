@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getPastOrderHistory } from '../../StoreLogic/store';
-import { SocketContext, socket } from '../../context/Socket';
+import { getPastOrderHistory } from '../../StoreLogic/store.js';
+import { SocketContext, socket } from '../../context/Socket.jsx';
 
 export default function OrderHistory() {
   // local state

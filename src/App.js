@@ -1,11 +1,11 @@
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import React from 'react';
 import './App.css';
-import FullMenu from './components/Menu/FullMenu';
-import { MenuProvider } from './StoreLogic/store';
-import CheckOut from './components/CheckOut/CheckOut';
-import Orders from './components/ViewOrders/Orders';
-import OrderHistory from './components/ViewOrders/OrderHistory';
+import FullMenu from './components/Menu/FullMenu.jsx';
+import { MenuProvider } from './StoreLogic/store.js';
+import CheckOut from './components/CheckOut/CheckOut.jsx';
+import Orders from './components/ViewOrders/Orders.jsx';
+import OrderHistory from './components/ViewOrders/OrderHistory.jsx';
 
 function App() {
   // use effect to get full menu
