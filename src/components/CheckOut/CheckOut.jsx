@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { MenuContext, confirmOrder } from '../../StoreLogic/store.js';
-import StoreLocations from '../StoreLocation/StoreLocation.jsx';
+// import StoreLocations from '../StoreLocation/StoreLocation.jsx';
 import OrderSummary from '../OrderSummary/OrderSummary.jsx';
+import OrderDetailsModal from '../ViewOrders/OrderDetailsModal.jsx';
 
 export default function CheckOut() {
   // global states
@@ -71,7 +72,7 @@ export default function CheckOut() {
         {store.totalAmount}
       </h3>
       <h3>Pick up from:</h3>
-      <StoreLocations />
+      {/* <StoreLocations /> */}
       <span>Pick up time</span>
       <input
         type="time"
@@ -83,9 +84,9 @@ export default function CheckOut() {
       <button type="button" onClick={handleClick}>Confirm order</button>
 
       {/* render order summary page */}
-      <p>==========BELOW IS RENDERED AS MODAL===========</p>
-      <h4>ORDER SUMMARY MODAL</h4>
-      {showOrderSumamry && <OrderSummary pickuptime={pickuptime} />}
+      {/* <p>==========BELOW IS RENDERED AS MODAL===========</p>
+      <h4>ORDER SUMMARY MODAL</h4> */}
+      {showOrderSumamry && <OrderDetailsModal pickuptime={pickuptime} setOrderSummary={setOrderSummary} store={store} />}
     </>
   );
 }

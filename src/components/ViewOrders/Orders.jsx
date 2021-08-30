@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { getOrderDetails } from '../../StoreLogic/store.js';
 import OrderDetails from './OrderDetails.jsx';
 import { SocketContext, socket } from '../../context/Socket.jsx';
+import OrderDetailsModal from './OrderDetailsModal.jsx';
+import OrdersModal from './OrdersModal.jsx';
 
 export default function Orders() {
   // local state
@@ -20,7 +22,7 @@ export default function Orders() {
       const userId = 1;
       const response = await getOrderDetails(userId);
       console.log(response.data);
-      // setOrderDetails(response);
+      setOrderDetails(response.data);
     };
     fetchData();
     // ================================================= SOCKET MVP
@@ -34,7 +36,8 @@ export default function Orders() {
   }, []);
   return (
     <>
-      {orderDetails.map((entry, index) => (
+      <OrdersModal orderDetails={orderDetails} showOrderDetails={showOrderDetails} setShowOrderDetails={setShowOrderDetails} refOrderIndex={refOrderIndex} />
+      {/* {orderDetails.map((entry, index) => (
         <div>
           <p>
             receipt Number:
@@ -55,18 +58,19 @@ export default function Orders() {
           <button
             type="button"
             onClick={() => {
-              refOrderIndex.current = index;
               setShowOrderDetails(true);
+              refOrderIndex.current = index;
             }}
           >
             ViewOrder
           </button>
         </div>
-      ))}
+      ))} */}
       {/* MODAL COMPONENT IS SHOWN WHEN THE viewOrder btn is clicked */}
-      {showOrderDetails && <OrderDetails orderDetails={orderDetails[refOrderIndex.current]} />}
+      {/* {showOrderDetails && <OrderDetails orderDetails={orderDetails[refOrderIndex.current]} />}
       <hr />
-      <Link to="/orderhistory">View past orders</Link>
+      <Link to="/orderhistory">View past orders</Link> */}
+
     </>
   );
 }

@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import { findCoords } from '../../StoreLogic/store';
+// import { findCoords } from '../../StoreLogic/store';
 
 // =======Calculate distance================
 // helper fucntion
