@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import { Paper, Card, CardContent, Grid, CardMedia } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -28,9 +29,10 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
+const Transition = React.forwardRef((props, ref) => <Slide direction="left" ref={ref} {...props} />);
 
 export default function OrderHistoryModal({ orderDetails }) {
+  const history = useHistory();
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -39,6 +41,10 @@ export default function OrderHistoryModal({ orderDetails }) {
   };
 
   const handleClose = () => {
+    const doLater = () => {
+      history.push('/orders');
+    };
+    setTimeout(doLater, 0);
     setOpen(false);
   };
 
