@@ -47,8 +47,6 @@ export function loadItemsAction(items) {
 }
 
 export function addItemAction(item) {
-  console.log('additem ran');
-  console.log(item);
   return {
     type: ADD_ITEM,
     payload: {
