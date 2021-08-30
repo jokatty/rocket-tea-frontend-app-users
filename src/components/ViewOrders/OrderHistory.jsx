@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getPastOrderHistory } from '../../StoreLogic/store.js';
 import { SocketContext, socket } from '../../context/Socket.jsx';
+import OrderHistoryModal from './OrderHistoryModal.jsx';
 
 export default function OrderHistory() {
   // local state
@@ -12,6 +13,7 @@ export default function OrderHistory() {
       const userId = 1;
       const response = await getPastOrderHistory(userId);
       console.log(response.data);
+      setOderDetails(response.data);
     };
     fetchData();
     // ================================================= SOCKET MVP
@@ -25,22 +27,33 @@ export default function OrderHistory() {
   }, []);
   return (
     <>
-      <h1>PAST ORDERS</h1>
-      <div>
-        <p>order id:</p>
-        <p>date:</p>
-        <p>pick up from:</p>
-        <p>pick up time:</p>
-        <p>Status(ex. complete)</p>
-      </div>
-      <hr />
-      <div>
-        <p>order id:</p>
-        <p>date:</p>
-        <p>pick up from:</p>
-        <p>pick up time:</p>
-        <p>Status(ex. complete)</p>
-      </div>
+      <OrderHistoryModal orderDetails={orderDetails} />
+      {/* {orderDetails.map(order => (
+        <div>
+          <p>
+            order id:
+            {order.orderTableData.receiptNum}
+          </p>
+          <p>
+            date:
+            {order.orderTableData.createdAt}
+          </p>
+          <p>
+            pick up from:Store
+            {order.orderTableData.storeId}
+          </p>
+          <p>
+            pick up time:
+            {order.orderTableData.pickUpTime}
+          </p>
+          <p>
+            Order status:
+            {order.orderTableData.orderStatus}
+          </p>
+        </div>
+      ))} */}
+
+
     </>
   );
 }
