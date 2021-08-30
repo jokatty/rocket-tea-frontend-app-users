@@ -85,7 +85,7 @@ export default function OrdersModal({ orderDetails, showOrderDetails, setShowOrd
                     </Typography>
                     <Typography variant="body2" gutterBottom color="textSecondary">
 
-                      pick up time:
+                      Pick Up Time:
                       {order.orderTableData.pickUpTime}
                     </Typography>
                   </Grid>
@@ -98,7 +98,7 @@ export default function OrdersModal({ orderDetails, showOrderDetails, setShowOrd
                         refOrderIndex.current = index;
                       }}
                     >
-                      ViewOrder
+                      VIEW ORDER
                     </button>
                   </Grid>
                 </Grid>
@@ -106,7 +106,7 @@ export default function OrdersModal({ orderDetails, showOrderDetails, setShowOrd
               {showOrderDetails && <OrderDetailsModal orderDetails={orderDetails[refOrderIndex.current]} />}
             </CardContent>
           </Card>
-          <Link to="/orderhistory">View past orders</Link>
+          <Link to="/orderhistory">VIEW PAST ORDERS</Link>
         </AppBar>
       </Dialog>
     </div>
