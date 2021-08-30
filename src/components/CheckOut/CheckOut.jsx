@@ -10,6 +10,7 @@ import { MenuContext, confirmOrder } from '../../StoreLogic/store.js';
 import StoreLocations from '../StoreLocation/StoreLocation.jsx';
 import OrderDetails from '../ViewOrders/OrderDetails.jsx';
 import ItemCard from './ItemCard.jsx';
+import OrderDetailsModal from '../ViewOrders/OrderDetailsModal.jsx';
 
 const useStyles = makeStyles({
   root: {
@@ -79,7 +80,11 @@ export default function CheckOut() {
           itemTotal: entry.itemTotal,
         })),
     };
-    await confirmOrder(orderInfo);
+
+    // update orderTableData with info from db
+    const { data: newOrderTableData } = await confirmOrder(orderInfo);
+    orderInfo.orderTableData = newOrderTableData;
+
     // update state
     setOrderDetails(() => orderInfo);
     setOrderSummary(() => true);
@@ -143,7 +148,7 @@ export default function CheckOut() {
         Confirm order
       </Button>
 
-      {showOrderSumamry && <OrderDetails orderDetails={orderDetails} />}
+      {showOrderSumamry && <OrderDetailsModal orderDetails={orderDetails} />}
     </Box>
 
   );
