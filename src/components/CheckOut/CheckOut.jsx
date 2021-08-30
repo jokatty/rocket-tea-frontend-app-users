@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { MenuContext, confirmOrder } from '../../StoreLogic/store';
-import StoreLocations from '../StoreLocation/StoreLocation';
-import OrderSummary from '../OrderSummary/OrderSummary';
+import { MenuContext, confirmOrder } from '../../StoreLogic/store.js';
+import StoreLocations from '../StoreLocation/StoreLocation.jsx';
+import OrderSummary from '../OrderSummary/OrderSummary.jsx';
 
 export default function CheckOut() {
   // global states

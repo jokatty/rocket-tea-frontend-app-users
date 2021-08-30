@@ -1,134 +1,94 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useContext, useEffect } from 'react';
-import { addItemAction, MenuContext, addTotalAmount } from '../../StoreLogic/store';
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
+import CardMedia from '@material-ui/core/CardMedia';
+import { BACKEND_URL } from '../../config/config.mjs';
 
-export default function SingleProduct({ itemInfo, setDisplayMenu }) {
-  const { store, dispatch } = useContext(MenuContext);
-
-  // set local state for inputs
-  const [size, setSize] = useState('regular');
-  const [temp, setTemp] = useState('');
-  const [quantity, setQuantity] = useState(1);
-  const [itemTotal, setItemTotal] = useState(Number(itemInfo.price));
-
-  useEffect(() => {
-    (async () => {
-      let updatedItemTotal;
-      if (size === 'large') {
-        updatedItemTotal = (Number(itemInfo.price) + 1) * quantity;
-      } else {
-        updatedItemTotal = Number(itemInfo.price) * quantity;
-      }
-      setItemTotal(() => updatedItemTotal);
-    })();
-  }, [quantity, size]);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const singleOrder = {
-      itemId: itemInfo.id,
-      sizeChoice: size,
-      tempChoice: temp,
-      quantity,
-      itemName: itemInfo.itemName,
-      itemTotal,
-    };
-    dispatch(addItemAction(singleOrder));
-    // DISPATCH THE TOTAL AMOUNT.
-    dispatch(addTotalAmount(itemTotal));
-    //
-    setDisplayMenu(() => null);
+const useStyles = makeStyles((theme) => ({
+  appBar: {
+    position: 'relative',
+    background: '#FFDD00',
+    color: '#FA275A',
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '70%',
   }
+}));
+
+const Transition = React.forwardRef((props, ref) => <Slide direction="left" ref={ref} {...props} />);
+
+export default function SingleProduct({ setDisplayMenu, item }) {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
+  // console.log(item);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    const doLater = () => {
+      setDisplayMenu('FULL_MENU');
+    };
+    setTimeout(doLater, 0);
+    setOpen(false);
+  };
+
   return (
-    <>
-      <h1>SINGLE PRODUCT PAGE</h1>
-      <p>
-        Name:
-        {itemInfo.itemName}
-      </p>
-      <p>
-        Desp:
-        {itemInfo.description}
-      </p>
-      <p>
-        Price:
-        {Number(itemInfo.price)}
-      </p>
-      <p>
-        Temp:
-        {itemInfo.availableInTemp}
-      </p>
-      <form onSubmit={handleSubmit}>
-        <p>Size:(extra $1 for large)</p>
-        <input
-          type="radio"
-          id="regular"
-          name="size_choice"
-          value="regular"
-          onChange={() => {
-            setSize('regular');
-          }}
+
+    <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+      <AppBar className={classes.appBar} elevation={0}>
+        <Toolbar>
+          <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+            <CloseIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
+      <Paper elevation={0} className={classes.form}>
+        <CardMedia
+          component="img"
+          image={`${BACKEND_URL}/api/items/image/${item.imageId}`}
+          alt="drink"
         />
 
-        <label htmlFor="regular">Regular</label>
-        <input
-          type="radio"
-          id="large"
-          name="size_choice"
-          value="large"
-          onChange={() => {
-            setSize('large');
-          }}
-        />
-        <label htmlFor="large">Large</label>
-        <p>Available in</p>
-        <input
-          type="radio"
-          id="hot"
-          name="temp_choice"
-          value="hot"
-          onChange={() => {
-            setTemp('hot');
-          }}
-        />
-        <label htmlFor="hot">Hot</label>
-        <input
-          type="radio"
-          id="iced"
-          name="temp_choice"
-          value="iced"
-          onChange={() => {
-            setTemp('iced');
-          }}
-        />
-        <label htmlFor="iced">Iced</label>
-        <div>
-          <button
-            type="button"
-            onClick={() => {
-              setQuantity(() => quantity - 1);
-            }}
-          >
-            -
-          </button>
-          <span>{quantity}</span>
-          <button
-            type="button"
-            onClick={() => {
-              setQuantity(() => quantity + 1);
-            }}
-          >
-            +
-          </button>
-          <p>
-            <button type="submit">
-              Add to cart $
-              {itemTotal}
-            </button>
-          </p>
-        </div>
-      </form>
-    </>
+        <Paper elevation={3}>
+          <Typography variant="h4" className={classes.title}>
+            {item.itemName}
+          </Typography>
+          <Typography variant="h4" className={classes.title}>
+            {item.price}
+          </Typography>
+        </Paper>
+
+        <Paper elevation={3}>
+          <Typography variant="h6" className={classes.title}>
+            {item.description}
+          </Typography>
+        </Paper>
+
+      </Paper>
+
+    </Dialog>
+
   );
 }
