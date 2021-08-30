@@ -3,9 +3,9 @@ import React, { useEffect, useState, useRef } from 'react';
 
 /* eslint-disable no-unused-vars */
 import { Link } from 'react-router-dom';
-import { getOrderDetails } from '../../StoreLogic/store';
-import OrderDetails from './OrderDetails';
-import { SocketContext, socket } from '../../context/Socket';
+import { getOrderDetails } from '../../StoreLogic/store.js';
+import OrderDetails from './OrderDetails.jsx';
+import { SocketContext, socket } from '../../context/Socket.jsx';
 
 export default function Orders() {
   // local state
