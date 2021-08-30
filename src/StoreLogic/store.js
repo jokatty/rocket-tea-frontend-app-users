@@ -142,6 +142,7 @@ export async function loadItems() {
 }
 export async function confirmOrder(orderInfo) {
   const response = await axios.post(`${BACKEND_URL}/api/neworder`, orderInfo);
+  console.log(response);
   return response;
 }
 

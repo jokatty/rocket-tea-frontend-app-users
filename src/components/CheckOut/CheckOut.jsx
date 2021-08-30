@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { MenuContext, confirmOrder } from '../../StoreLogic/store';
 import StoreLocations from '../StoreLocation/StoreLocation';
 import OrderSummary from '../OrderSummary/OrderSummary';
+import OrderSummaryModal from '../OrderSummary/OrderSummaryModal';
 
 export default function CheckOut() {
   // global states
@@ -80,12 +81,13 @@ export default function CheckOut() {
         }}
       />
       <p>Payment Method: cash only</p>
-      <button type="button" onClick={handleClick}>Confirm order</button>
+      {/* <button type="button" onClick={handleClick}>Confirm order</button> */}
+      <OrderSummaryModal onClick={handleClick} pickuptime={pickuptime} />
 
       {/* render order summary page */}
-      <p>==========BELOW IS RENDERED AS MODAL===========</p>
+      {/* <p>==========BELOW IS RENDERED AS MODAL===========</p>
       <h4>ORDER SUMMARY MODAL</h4>
-      {showOrderSumamry && <OrderSummary pickuptime={pickuptime} />}
+      {showOrderSumamry && <OrderSummary pickuptime={pickuptime} />} */}
     </>
   );
 }

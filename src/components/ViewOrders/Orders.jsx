@@ -20,7 +20,7 @@ export default function Orders() {
       const userId = 1;
       const response = await getOrderDetails(userId);
       console.log(response.data);
-      // setOrderDetails(response);
+      setOrderDetails(response.data);
     };
     fetchData();
     // ================================================= SOCKET MVP
