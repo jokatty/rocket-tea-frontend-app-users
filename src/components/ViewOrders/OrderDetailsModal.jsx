@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="left" ref={ref} {...props} />);
 
-export default function OrderDetailsModal({ orderDetails, currentPage }) {
+export default function OrderDetailsModal({ orderDetails, modalOpenedFrom, setShowOrderDetails }) {
   const { store, dispatch } = useContext(MenuContext);
   const history = useHistory();
   const { orderTableData, orderItemsTableData } = orderDetails;
@@ -52,7 +52,9 @@ export default function OrderDetailsModal({ orderDetails, currentPage }) {
   const handleClose = () => {
     // setOpen(false);
     const doLater = () => {
-      if (currentPage === 'orders') {
+      if (modalOpenedFrom === 'orders') {
+        console.log('SHOULD REDIRECT TO ORDERS');
+        setShowOrderDetails(false);
         history.push('/orders');
       }
       else {

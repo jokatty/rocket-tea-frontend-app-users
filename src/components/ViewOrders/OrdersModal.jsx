@@ -103,7 +103,7 @@ export default function OrdersModal({ orderDetails, showOrderDetails, setShowOrd
                   </Grid>
                 </Grid>
               ))}
-              {showOrderDetails && <OrderDetailsModal orderDetails={orderDetails[refOrderIndex.current]} currentPgae="orders" />}
+              {showOrderDetails && <OrderDetailsModal orderDetails={orderDetails[refOrderIndex.current]} modalOpenedFrom="orders" setShowOrderDetails={setShowOrderDetails} />}
             </CardContent>
           </Card>
           <Link to="/orderhistory">VIEW PAST ORDERS</Link>
