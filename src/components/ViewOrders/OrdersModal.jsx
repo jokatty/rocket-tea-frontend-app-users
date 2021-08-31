@@ -13,8 +13,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import { Paper, Card, CardContent, Grid, CardMedia } from '@material-ui/core';
+import { Paper, Card, CardContent, Grid, CardMedia, Container } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
+import moment from 'moment';
 import OrderDetailsModal from './OrderDetailsModal.jsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -64,48 +65,57 @@ export default function OrdersModal({ orderDetails, showOrderDetails, setShowOrd
               ORDERS
             </Typography>
           </Toolbar>
+          <Container>
+            <Card>
+              <CardContent className={classes.root}>
+                {orderDetails.map((order, index) => (
+                  <Grid container direction="row" spacing={4}>
+                    <Grid item xs={8}>
+                      <Grid>
+                        <Typography gutterBottom variant="h6" component="div">
+                          Receipt Number:
+                          {order.orderTableData.receiptNum}
+                        </Typography>
+                      </Grid>
+                      <Grid xs={4}>
+                        <Typography variant="body2" gutterBottom color="textSecondary">
+                          Date:
+                          {moment(
+                            order.orderTableData.createdAt
+                          ).format('MMM Do YY')}
 
-          <Card>
-            <CardContent className={classes.root}>
-              {orderDetails.map((order, index) => (
-                <Grid container direction="row" spacing={4}>
-                  <Grid item xs={8}>
-                    <Typography gutterBottom variant="h6" component="div">
-                      Receipt Number:
-                      {order.orderTableData.receiptNum}
-                    </Typography>
-                    <Typography variant="body2" gutterBottom color="textSecondary">
-                      date:
-                      {order.orderTableData.createdAt}
-                    </Typography>
-                    <Typography variant="body2" gutterBottom color="textSecondary">
+                        </Typography>
+                      </Grid>
+                      <Typography variant="body2" gutterBottom color="textSecondary">
 
-                      pick up from:Store
-                      {order.orderTableData.storeId}
-                    </Typography>
-                    <Typography variant="body2" gutterBottom color="textSecondary">
+                        pick up from:Store
+                        {order.orderTableData.storeId}
+                      </Typography>
+                      <Typography variant="body2" gutterBottom color="textSecondary">
 
-                      Pick Up Time:
-                      {order.orderTableData.pickUpTime}
-                    </Typography>
+                        Pick Up Time:
+                        {moment(order.orderTableData.createdAt).format('LT')}
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xs={2} className={classes.price}>
+                      <Button
+                        color="secondary"
+                        type="button"
+                        onClick={() => {
+                          setShowOrderDetails(true);
+                          refOrderIndex.current = index;
+                        }}
+                      >
+                        VIEW ORDER
+                      </Button>
+                    </Grid>
                   </Grid>
-
-                  <Grid item xs={2} className={classes.price}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setShowOrderDetails(true);
-                        refOrderIndex.current = index;
-                      }}
-                    >
-                      VIEW ORDER
-                    </button>
-                  </Grid>
-                </Grid>
-              ))}
-              {showOrderDetails && <OrderDetailsModal orderDetails={orderDetails[refOrderIndex.current]} modalOpenedFrom="orders" setShowOrderDetails={setShowOrderDetails} />}
-            </CardContent>
-          </Card>
+                ))}
+                {showOrderDetails && <OrderDetailsModal orderDetails={orderDetails[refOrderIndex.current]} modalOpenedFrom="orders" setShowOrderDetails={setShowOrderDetails} />}
+              </CardContent>
+            </Card>
+          </Container>
           <Link to="/orderhistory">VIEW PAST ORDERS</Link>
         </AppBar>
       </Dialog>

@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { Grid } from '@material-ui/core';
 import { storeLocations, getStoreId, MenuContext } from '../../StoreLogic/store.js';
 import calcDistance from './NearestLocation.js';
 
@@ -56,6 +58,25 @@ export default function StoreLocations() {
           id: 'outlined-stores-native-simple',
         }}
       >
+
+        <option selected="selected">
+          PICK UP AT
+          {stores[0].login}
+          (
+          {Math.floor(stores[0].distance)}
+          KM)
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              dgf
+            </Grid>
+            <Grid item xs={6}>
+              dfgr
+            </Grid>
+            <Grid item xs={6}>
+              fdgd
+            </Grid>
+          </Grid>
+        </option>
         {stores.map((entry) => (
           <option value={`${entry.id}${entry.location}`}>
             {entry.location}
