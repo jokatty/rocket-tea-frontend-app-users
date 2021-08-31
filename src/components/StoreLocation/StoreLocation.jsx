@@ -37,8 +37,11 @@ export default function StoreLocations() {
       // const { data } = await storeLocations();
       setStores(() => storesSortedByDist);
       console.log(stores);
+      console.log('inside useeffect');
     })();
   }, []);
+
+  console.log('outside useeffect');
 
   //  call back function for on change
   function handleChange(e) {
@@ -48,6 +51,9 @@ export default function StoreLocations() {
     setSelectStore(() => e.target.value);
   }
   return (
+    <>
+      {stores.length !== 0
+    && (
     <FormControl variant="outlined" className={classes.formControl}>
       <Select
         native
@@ -58,14 +64,11 @@ export default function StoreLocations() {
           id: 'outlined-stores-native-simple',
         }}
       >
-
-        <option selected="selected">
-          PICK UP AT
-          {stores[0].login}
-          (
-          {Math.floor(stores[0].distance)}
-          KM)
-          <Grid container spacing={3}>
+        <option
+          selected="selected"
+        >
+          {`${stores[0].storeName}   ${Math.floor(stores[0].distance)}KM`}
+          {/* <Grid container spacing={3}>
             <Grid item xs={12}>
               dgf
             </Grid>
@@ -75,19 +78,23 @@ export default function StoreLocations() {
             <Grid item xs={6}>
               fdgd
             </Grid>
-          </Grid>
+          </Grid> */}
         </option>
         {stores.map((entry) => (
           <option value={`${entry.id}${entry.location}`}>
-            {entry.location}
+            {entry.storeName}
             {' '}
+            (
             {Math.floor(entry.distance)}
-            Km
+            KM)
           </option>
         ))}
       </Select>
     </FormControl>
+    )}
+    </>
   );
+
   // return (
   //   <select name="select_location" onChange={handleChange}>
   //     {

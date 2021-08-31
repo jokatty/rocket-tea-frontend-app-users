@@ -28,6 +28,15 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  addToCartButton: {
+    width: '100%',
+    padding: '1rem',
+    marginTop: '1rem',
+    background: '#FA275A',
+    '&:hover': {
+      backgroundColor: '#FA075A',
+    }
+  }
 
 }));
 
@@ -70,9 +79,9 @@ export default function OrdersModal({ orderDetails, showOrderDetails, setShowOrd
               <CardContent className={classes.root}>
                 {orderDetails.map((order, index) => (
                   <Grid container direction="row" spacing={4}>
-                    <Grid item xs={8}>
+                    <Grid item xs={10}>
                       <Grid>
-                        <Typography gutterBottom variant="h6" component="div">
+                        <Typography gutterBottom variant="body1" component="div">
                           Receipt Number:
                           {order.orderTableData.receiptNum}
                         </Typography>
@@ -116,7 +125,11 @@ export default function OrdersModal({ orderDetails, showOrderDetails, setShowOrd
               </CardContent>
             </Card>
           </Container>
-          <Link to="/orderhistory">VIEW PAST ORDERS</Link>
+          <Container>
+            <Button variant="outlined" className={classes.addToCartButton}>
+              <Link to="/orderhistory" style={{ textDecoration: 'none', color: 'white' }}>VIEW PAST ORDERS</Link>
+            </Button>
+          </Container>
         </AppBar>
       </Dialog>
     </div>
