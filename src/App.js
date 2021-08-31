@@ -7,9 +7,9 @@ import CheckOut from './components/CheckOut/CheckOut.jsx';
 import Orders from './components/ViewOrders/Orders.jsx';
 import OrderHistory from './components/ViewOrders/OrderHistory.jsx';
 
+
 function App() {
   // use effect to get full menu
-
   return (
     <Router>
       <Switch>
