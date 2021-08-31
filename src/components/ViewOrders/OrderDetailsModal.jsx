@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -14,7 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import { Paper, CardMedia, Container, Card, CardContent, Grid } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import { BACKEND_URL } from '../../config/config.mjs';
+import { resetCart, MenuContext } from '../../StoreLogic/store.js';
 
 const useStyles = makeStyles((theme) => ({
   price: {
@@ -34,7 +36,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="left" ref={ref} {...props} />);
 
-export default function OrderDetailsModal({ orderDetails }) {
+export default function OrderDetailsModal({ orderDetails, modalOpenedFrom, setShowOrderDetails }) {
+  const { store, dispatch } = useContext(MenuContext);
+  const history = useHistory();
   const { orderTableData, orderItemsTableData } = orderDetails;
   // console.log(store);
   console.log('ORDER DETAILS FROM MODAL', orderDetails);
@@ -47,10 +51,19 @@ export default function OrderDetailsModal({ orderDetails }) {
 
   const handleClose = () => {
     // setOpen(false);
-    // const doLater = () => {
-    //   setOrderSummary(false);
-    // };
-    // setTimeout(doLater, 0);
+    const doLater = () => {
+      if (modalOpenedFrom === 'orders') {
+        console.log('SHOULD REDIRECT TO ORDERS');
+        setShowOrderDetails(false);
+        history.push('/orders');
+      }
+      else {
+        dispatch(resetCart());
+        history.push('/');
+      }
+    };
+
+    setTimeout(doLater, 0);
     setOpen(false);
   };
 
