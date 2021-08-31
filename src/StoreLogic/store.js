@@ -26,6 +26,7 @@ const ADD_ITEM = 'ADD_ITEM';
 const TOTAL_AMOUNT = 'TOTAL_AMOUNT';
 const STORE_INFO = 'STORE_INFO';
 const ORDER_STATUS = 'ORDER_STATUS';
+const EMPTY_CART = 'EMPTY_CART';
 
 //  reducer function for the actions
 export function menuReducer(state, action) {
@@ -38,6 +39,9 @@ export function menuReducer(state, action) {
       return { ...state, storeInfo: action.payload.storeInfo };
     case ORDER_STATUS:
       return { ...state, orderStatus: action.payload.status };
+    case EMPTY_CART:
+      console.log('reduces is running');
+      return initialState;
     default:
       return state;
   }
@@ -114,6 +118,13 @@ export function getStoreName(allStores) {
   return storesName;
 }
 
+export function resetCart() {
+  console.log('EMPTY CART RANNNN');
+  return {
+    type: EMPTY_CART,
+  };
+}
+
 /**
  * function to find out lat and log of a particualar location
  */
@@ -132,6 +143,8 @@ export async function findAllLatLng(placeNameArr) {
   }
   return allCords;
 }
+
+
 
 // /Backend requests.
 export async function loadItems() {

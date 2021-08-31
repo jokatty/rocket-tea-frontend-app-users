@@ -5,6 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { storeLocations, getStoreId, MenuContext } from '../../StoreLogic/store.js';
+import calcDistance from './NearestLocation.js';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,8 +31,10 @@ export default function StoreLocations() {
 
   useEffect(() => {
     (async () => {
-      const { data } = await storeLocations();
-      setStores(data.stores);
+      const storesSortedByDist = await calcDistance();
+      // const { data } = await storeLocations();
+      setStores(() => storesSortedByDist);
+      console.log(stores);
     })();
   }, []);
 
@@ -53,7 +56,14 @@ export default function StoreLocations() {
           id: 'outlined-stores-native-simple',
         }}
       >
-        {stores.map((entry) => <option value={`${entry.id}${entry.location}`}>{entry.location}</option>)}
+        {stores.map((entry) => (
+          <option value={`${entry.id}${entry.location}`}>
+            {entry.location}
+            {' '}
+            {Math.floor(entry.distance)}
+            Km
+          </option>
+        ))}
       </Select>
     </FormControl>
   );
