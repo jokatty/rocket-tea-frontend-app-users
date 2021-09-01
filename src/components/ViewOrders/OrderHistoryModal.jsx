@@ -29,8 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Transition = React.forwardRef((props, ref) => <Slide direction="left" ref={ref} {...props} />);
-
 export default function OrderHistoryModal({ orderDetails }) {
   const history = useHistory();
   const classes = useStyles();
@@ -50,10 +48,7 @@ export default function OrderHistoryModal({ orderDetails }) {
 
   return (
     <div>
-      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open full-screen dialog
-      </Button> */}
-      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+      <Dialog fullScreen open={open} onClose={handleClose}>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">

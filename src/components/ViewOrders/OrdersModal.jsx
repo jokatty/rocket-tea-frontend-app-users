@@ -17,6 +17,7 @@ import { Paper, Card, CardContent, Grid, CardMedia, Container } from '@material-
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import OrderDetailsModal from './OrderDetailsModal.jsx';
+import ViewPastOrdersButton from './ViewPastOrdersButton.jsx';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -61,9 +62,6 @@ export default function OrdersModal({ orderDetails, showOrderDetails, setShowOrd
 
   return (
     <div>
-      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open full-screen dialog
-      </Button> */}
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
@@ -83,6 +81,7 @@ export default function OrdersModal({ orderDetails, showOrderDetails, setShowOrd
                       <Grid>
                         <Typography gutterBottom variant="body1" component="div">
                           Receipt Number:
+                          #
                           {order.orderTableData.receiptNum}
                         </Typography>
                       </Grid>
@@ -125,13 +124,10 @@ export default function OrdersModal({ orderDetails, showOrderDetails, setShowOrd
               </CardContent>
             </Card>
           </Container>
-          <Container>
-            <Button variant="outlined" className={classes.addToCartButton}>
-              <Link to="/orderhistory" style={{ textDecoration: 'none', color: 'white' }}>VIEW PAST ORDERS</Link>
-            </Button>
-          </Container>
+          <ViewPastOrdersButton />
         </AppBar>
       </Dialog>
+
     </div>
   );
 }

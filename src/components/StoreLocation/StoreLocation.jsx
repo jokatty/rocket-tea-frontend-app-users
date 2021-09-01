@@ -8,6 +8,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { Grid } from '@material-ui/core';
 import { storeLocations, getStoreId, MenuContext } from '../../StoreLogic/store.js';
 import calcDistance from './NearestLocation.js';
+import CircularIndeterminate from './Loading.jsx';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,22 +54,22 @@ export default function StoreLocations() {
   return (
     <>
       {stores.length !== 0
-    && (
-    <FormControl variant="outlined" className={classes.formControl}>
-      <Select
-        native
-        value={selectStore}
-        onChange={handleChange}
-        inputProps={{
-          name: 'stores',
-          id: 'outlined-stores-native-simple',
-        }}
-      >
-        <option
-          selected="selected"
-        >
-          {`${stores[0].storeName}   ${Math.floor(stores[0].distance)}KM`}
-          {/* <Grid container spacing={3}>
+        ? (
+          <FormControl variant="outlined" className={classes.formControl}>
+            <Select
+              native
+              value={selectStore}
+              onChange={handleChange}
+              inputProps={{
+                name: 'stores',
+                id: 'outlined-stores-native-simple',
+              }}
+            >
+              <option
+                selected="selected"
+              >
+                {`${stores[0].storeName}   ${Math.floor(stores[0].distance)}KM`}
+                {/* <Grid container spacing={3}>
             <Grid item xs={12}>
               dgf
             </Grid>
@@ -79,28 +80,19 @@ export default function StoreLocations() {
               fdgd
             </Grid>
           </Grid> */}
-        </option>
-        {stores.map((entry) => (
-          <option value={`${entry.id}${entry.location}`}>
-            {entry.storeName}
-            {' '}
-            (
-            {Math.floor(entry.distance)}
-            KM)
-          </option>
-        ))}
-      </Select>
-    </FormControl>
-    )}
+              </option>
+              {stores.map((entry) => (
+                <option value={`${entry.id}${entry.location}`}>
+                  {entry.storeName}
+                  {' '}
+                  (
+                  {Math.floor(entry.distance)}
+                  KM)
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        ) : <CircularIndeterminate />}
     </>
   );
-
-  // return (
-  //   <select name="select_location" onChange={handleChange}>
-  //     {
-  //    stores.map((entry) => <option value={`${entry.id}${entry.location}`}>{entry.location}</option>)
-  //  }
-
-  //   </select>
-  // );
 }

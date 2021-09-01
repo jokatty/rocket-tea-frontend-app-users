@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import { useHistory } from 'react-router-dom';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,14 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-    alignSelf: 'flex-end'
+    display: 'flex',
+    alignItems: 'flex-end',
+    alignSelf: 'flex-end',
+    color: '#FA275A',
+  },
+  logo: {
+    marginRight: '0.75rem',
+    width: '3.5rem',
   }
 }));
 
@@ -47,9 +55,14 @@ export default function NavBar() {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography className={classes.title} variant="h5" noWrap>
-            ROCKET TEA 🍵
+
+            {/* we don't have to declare any value for PUBLIC_URL/ It's a react thing. */}
+            <img src={`${process.env.PUBLIC_URL}/rocket-tea-logo.svg`} alt="logo" className={classes.logo} />
+            ROCKET TEA
           </Typography>
+
 
           <IconButton
             aria-label="display more actions"
