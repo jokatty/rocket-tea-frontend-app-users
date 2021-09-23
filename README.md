@@ -38,6 +38,4 @@ _Click the image to direct to video_
 
 ## 🧠 ERD
 
-Super simple ERD as the point of this project was to practice more non-db related stuff
-
 ![Image of ERD](/readme_images/rocket-tea-erd.jpg)
