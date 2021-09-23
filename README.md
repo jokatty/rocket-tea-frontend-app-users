@@ -6,7 +6,7 @@ Rocket Tea is a clone of [Flash Coffee's mobile app](https://flash-coffee.com/) 
 
 1. An e-commerce consumer app where tea lovers can place an order for a cup of tea and set a pick up location at a store closest to them. (This github repo)
 
-2. An e-commerce consumer app where tea lovers can place an order for a cup of tea and set a pick up location at a store closest to them. [store app github repo here](https://github.com/eddiejpot/rocket-tea-frontend-app-stores)
+2. An e-commerce consumer app where tea lovers can place an order for a cup of tea and set a pick up location at a store closest to them. ([store app github repo here](https://github.com/eddiejpot/rocket-tea-frontend-app-stores))
 
 Tech Stack / Notable Libraries
 
