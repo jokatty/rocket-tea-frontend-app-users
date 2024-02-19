@@ -144,7 +144,7 @@ export default function CheckOut() {
       </Typography>
       <p>Payment Method: cash only</p>
 
-      <Button variant="contained" color="primary" className={classes.confirmOrderButton} onClick={handleConfirmOrder}>
+      <Button variant="contained" color="primary" className={classes.confirmOrderButton} onClick={() => handleConfirmOrder}>
         Confirm order
       </Button>
 
